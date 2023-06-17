@@ -1,0 +1,39 @@
+﻿@page
+@using Web_proj.Pages.Clients
+@model Web_proj.Pages.Clients.readModel
+@{
+}
+<br />
+<h2>
+    READ
+</h2>
+<a class="btn btn-primary" href="/Clients/create">Addition</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>AGE</th>
+            <th>SEX</th>
+            <th>HOBBY</th>
+            <th>EMAILID</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach( var con in Model.rover)
+        {
+            <tr>
+                <td>@con.Id</td>
+                <td>@con.Name</td>
+                <td>@con.Age</td>
+                <td>@con.Sex</td>
+                <td>@con.Hobby</td>
+                <td>@con.EmailId</td>
+                <td>
+                    <a class="btn btn-primary" href="/Clients/update?Id=@con.Id">Edit</a>
+                    <a class="btn btn-primary"  href="/Clients/delete?Id=@con.Id">DELETE</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

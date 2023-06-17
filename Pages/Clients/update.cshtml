@@ -1,0 +1,99 @@
+﻿@page
+@model Web_proj.Pages.Clients.updateModel
+@{
+}
+<br />
+<h2>Updation of Fields</h2>
+@if (Model.errorMessage.Length > 0)
+{
+    <div class="alert alert-dark">
+        <strong>@Model.errorMessage</strong>
+        <button class="btn btn-close" type="button"></button>
+    </div>
+}
+<form method="POST">
+    <input type="hidden" name="Id" value="@Model.indo.Id" />
+    <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" name="Name" value="@Model.indo.Name" />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Age</label>
+        <input type="number" class="form-control" name="Age" value="@Model.indo.Age" />
+    </div>
+    <div class="mb-3 form-check">
+        <label class="form-check-label">Sex</label>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" name="Sex" value="Male" @(Model.indo.Sex == "Male" ? "checked" : "") />
+            <label class="form-check-label">Male</label>
+        </div>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" name="Sex" value="Female" @(Model.indo.Sex == "Female" ? "checked" : "") />
+            <label class="form-check-label">Female</label>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Hobbies</label>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <input type="text" class="form-control" name="Hobby" id="droppy" readonly>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" id="optionsSelect" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#">Quantum physics</a></li>
+                        <li><a class="dropdown-item" href="#">Basketball</a></li>
+                        <li><a class="dropdown-item" href="#">Boxing</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">EmailId</label>
+        <input type="text" class="form-control" name="EmailId" value="@Model.indo.EmailId" />
+    </div>
+    @if (Model.successMessage.Length > 0)
+    {
+        <div class="alert alert-dark">
+            <strong>@Model.successMessage</strong>
+        </div>
+    }
+    <button type="submit" class="btn btn-primary" href="/Clients/read">Submit</button>
+    <button type="submit" class="btn btn-primary" href="/Clients/create">Cancel</button>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var dropdownItems = document.querySelectorAll('#optionsSelect .dropdown-item');
+        var inputTag = document.getElementById('droppy');
+
+        dropdownItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var selectedOptions = [];
+
+                dropdownItems.forEach(function (option) {
+                    if (option.classList.contains('active')) {
+                        selectedOptions.push(option.textContent);
+                    }
+                });
+
+                if (this.classList.contains('active')) {
+                    // Remove the active class if the option is already selected
+                    this.classList.remove('active');
+                    var index = selectedOptions.indexOf(this.textContent);
+                    if (index > -1) {
+                        selectedOptions.splice(index, 1);
+                    }
+                } else {
+                    // Add the active class if the option is selected
+                    this.classList.add('active');
+                    selectedOptions.push(this.textContent);
+                }
+
+                // Update the input tag value with the selected options
+                inputTag.value = selectedOptions.join(', ');
+            });
+        });
+    });
+</script>
